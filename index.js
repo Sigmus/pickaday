@@ -12,9 +12,17 @@ const [el] = document.getElementsByClassName("ptd");
 function renderDays(input) {
   const lastDay = getLastDay(input);
 
-  const days = range(lastDay.getDay() - 1)
-    .map((i) => "x")
-    .concat(getDaysMonth(lastDay));
+  const daysLastMonth = getDaysMonth(
+    getLastDay({
+      year: input.month === 0 ? input.year - 1 : input.year,
+      month: input.month === 0 ? 11 : input.month - 1,
+    })
+  )
+    .reverse()
+    .slice(0, lastDay.getDay() - 1)
+    .reverse();
+
+  const days = daysLastMonth.concat(getDaysMonth(lastDay));
 
   console.log(days);
 
