@@ -3,6 +3,21 @@ import "./index.css";
 
 const [el] = document.getElementsByClassName("ptd");
 
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 function renderDays(input) {
   const lastDay = getLastDay(input);
 
@@ -22,8 +37,9 @@ function renderDays(input) {
 
   const days = previousMonthDays.concat(getDaysMonth(lastDay));
 
-  let snippet =
-    "<table><tbody><head><tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>";
+  let snippet = `<h2>${months[input.month]} ${
+    input.year
+  }</h2><br/><table><tbody><head><tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>`;
 
   days.forEach((date, index) => {
     if (index % 7 === 0) {
@@ -37,11 +53,13 @@ function renderDays(input) {
     }
   });
 
-  el.innerHTML = `${snippet}</tbody></table>`;
+  let newNode = document.createElement("div");
+  newNode.innerHTML = `${snippet}</tbody></table>`;
+  el.appendChild(newNode);
 }
 
 function getDaysMonth(date) {
-  return range(date.getDate()).map((i) => {
+  return range(1, date.getDate() + 1).map((i) => {
     return new Date(date.getFullYear(), date.getMonth(), i);
   });
 }
@@ -52,15 +70,15 @@ function getLastDay(input) {
 
 // console.log(dayjs().set("month", 2));
 
-// renderDays(2020, 0);
+renderDays({ year: 2020, month: 0 });
 renderDays({ year: 2020, month: 1 });
-// renderDays(2020, 2);
-// renderDays(2020, 3);
-// renderDays(2020, 4);
-// renderDays(2020, 5);
-// renderDays(2020, 6);
-// renderDays(2020, 7);
-// renderDays(2020, 8);
-// renderDays(2020, 9);
-// renderDays(2020, 10);
-// renderDays(2020, 11);
+renderDays({ year: 2020, month: 2 });
+renderDays({ year: 2020, month: 3 });
+renderDays({ year: 2020, month: 4 });
+renderDays({ year: 2020, month: 5 });
+renderDays({ year: 2020, month: 6 });
+renderDays({ year: 2020, month: 7 });
+renderDays({ year: 2020, month: 8 });
+renderDays({ year: 2020, month: 9 });
+renderDays({ year: 2020, month: 10 });
+renderDays({ year: 2020, month: 11 });
