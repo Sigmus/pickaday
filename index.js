@@ -48,12 +48,13 @@ function renderCalendar(input) {
     if (index % 7 === 0) {
       snippet += `<tr>`;
     }
-    // console.log(dataKey);
+
     snippet += `<td data-key="${date.previous ? "" : dataKey}" class="${
       date.previous ? "previous " : ""
     }${
       input.selected && input.selected === dataKey ? "selected" : ""
     }">${date.getDate().toString()}`;
+
     if (index % 7 === 6 || index === days.length) {
       snippet += `</tr>`;
     }
