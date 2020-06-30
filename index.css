@@ -38,6 +38,12 @@ td {
   text-align: center;
 }
 
+td.selected {
+  background-color: teal;
+  color: white;
+  border-radius: 50%;
+}
+
 .previous {
   color: #bbb;
 }
