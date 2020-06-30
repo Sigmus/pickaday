@@ -41,11 +41,18 @@ function renderCalendar(input) {
   }</th><th>${weekDays[weekStart][6]}</th>`;
 
   days.forEach((date, index) => {
+    const dataKey = `${input.year}-${(input.month + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+
     if (index % 7 === 0) {
       snippet += `<tr>`;
     }
-    snippet += `<td class="${
-      date.previous ? "previous" : ""
+    // console.log(dataKey);
+    snippet += `<td data-key="${dataKey}" class="${
+      date.previous ? "previous " : ""
+    }${
+      input.selected && input.selected === dataKey ? "selected" : ""
     }">${date.getDate().toString()}`;
     if (index % 7 === 6 || index === days.length) {
       snippet += `</tr>`;
@@ -98,7 +105,7 @@ function getWeekDay(date) {
   return number - 1;
 }
 
-renderCalendar({ year: 2020, month: 0 });
+renderCalendar({ year: 2020, month: 0, selected: "2020-01-09" });
 renderCalendar({ year: 2020, month: 1 });
 renderCalendar({ year: 2020, month: 2 });
 renderCalendar({ year: 2020, month: 3 });
