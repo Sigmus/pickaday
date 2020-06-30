@@ -9,22 +9,30 @@ dayjs.extend(utc);
 
 const [el] = document.getElementsByClassName("ptd");
 
-function renderDays(year, month) {
-  const lastDay = new Date(year, month + 1, 0);
+function renderDays(input) {
+  const lastDay = getLastDay(input);
 
   const days = range(lastDay.getDay() - 1)
     .map((i) => "x")
-    .concat(range(1, lastDay.getDate() + 1));
+    .concat(getDaysMonth(lastDay));
 
   console.log(days);
 
   el.innerHTML = lastDay;
 }
 
+function getDaysMonth(date) {
+  return range(1, date.getDate() + 1);
+}
+
+function getLastDay(input) {
+  return new Date(input.year, input.month + 1, 0);
+}
+
 // console.log(dayjs().set("month", 2));
 
 // renderDays(2020, 0);
-renderDays(2020, 1);
+renderDays({ year: 2020, month: 1 });
 // renderDays(2020, 2);
 // renderDays(2020, 3);
 // renderDays(2020, 4);
