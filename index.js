@@ -4,6 +4,7 @@ import weekday from "dayjs/plugin/weekday";
 import utc from "dayjs/plugin/utc";
 
 import "./index.css";
+import { sortedUniq } from "lodash";
 dayjs.extend(weekday);
 dayjs.extend(utc);
 
@@ -26,7 +27,19 @@ function renderDays(input) {
 
   console.log(days);
 
-  el.innerHTML = lastDay;
+  let snippet = "<table><tbody>";
+
+  days.forEach((day, index) => {
+    if (index % 6 === 0) {
+      snippet += `<tr>`;
+    }
+    snippet += `<td>${day.toString().padStart(2, "0")}`;
+    if (index % 6 === 5) {
+      snippet += `</tr>`;
+    }
+  });
+
+  el.innerHTML = `${snippet}</tbody></table>`;
 }
 
 function getDaysMonth(date) {

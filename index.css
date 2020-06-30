@@ -11,3 +11,15 @@ body {
   padding: 5rem;
   text-align: center;
 }
+
+table {
+  font-size: 2rem;
+  font-weight: 300;
+  font-family: sans-serif;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 1rem;
+  border: 1px solid red;
+}
