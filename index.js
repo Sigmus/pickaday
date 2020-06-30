@@ -6,7 +6,7 @@ const [el] = document.getElementsByClassName("ptd");
 function renderDays(input) {
   const lastDay = getLastDay(input);
 
-  const daysLastMonth = getDaysMonth(
+  const previousMonthDays = getDaysMonth(
     getLastDay({
       year: input.month === 0 ? input.year - 1 : input.year,
       month: input.month === 0 ? 11 : input.month - 1,
@@ -16,18 +16,16 @@ function renderDays(input) {
     .slice(0, lastDay.getDay() - 1)
     .reverse();
 
-  const days = daysLastMonth.concat(getDaysMonth(lastDay));
-
-  console.log(days);
+  const days = previousMonthDays.concat(getDaysMonth(lastDay));
 
   let snippet = "<table><tbody>";
 
-  days.forEach((day, index) => {
-    if (index % 6 === 0) {
+  days.forEach((date, index) => {
+    if (index % 7 === 0) {
       snippet += `<tr>`;
     }
-    snippet += `<td>${day.toString().padStart(2, "0")}`;
-    if (index % 6 === 5) {
+    snippet += `<td>${date.getDate().toString().padStart(2, "0")}`;
+    if (index % 7 === 6) {
       snippet += `</tr>`;
     }
   });
@@ -36,7 +34,9 @@ function renderDays(input) {
 }
 
 function getDaysMonth(date) {
-  return range(1, date.getDate() + 1);
+  return range(date.getDate()).map((i) => {
+    return new Date(date.getFullYear(), date.getMonth(), i);
+  });
 }
 
 function getLastDay(input) {
