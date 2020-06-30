@@ -25,14 +25,14 @@ const months = [
   "Dec",
 ];
 
-function renderDays(input) {
+function renderCalendar(input) {
   const previousMonthDays = getPreviousMonthDays(input);
 
   const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
 
   let snippet = `<h2>${months[input.month]} ${
     input.year
-  }</h2><br/><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
+  }</h2><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
     weekDays[weekStart][1]
   }</th><th>${weekDays[weekStart][2]}</th><th>${
     weekDays[weekStart][3]
@@ -98,15 +98,15 @@ function getWeekDay(date) {
   return number - 1;
 }
 
-renderDays({ year: 2020, month: 0 });
-renderDays({ year: 2020, month: 1 });
-renderDays({ year: 2020, month: 2 });
-renderDays({ year: 2020, month: 3 });
-renderDays({ year: 2020, month: 4 });
-renderDays({ year: 2020, month: 5 });
-renderDays({ year: 2020, month: 6 });
-renderDays({ year: 2020, month: 7 });
-renderDays({ year: 2020, month: 8 });
-renderDays({ year: 2020, month: 9 });
-renderDays({ year: 2020, month: 10 });
-renderDays({ year: 2020, month: 11 });
+renderCalendar({ year: 2020, month: 0 });
+renderCalendar({ year: 2020, month: 1 });
+renderCalendar({ year: 2020, month: 2 });
+renderCalendar({ year: 2020, month: 3 });
+renderCalendar({ year: 2020, month: 4 });
+renderCalendar({ year: 2020, month: 5 });
+renderCalendar({ year: 2020, month: 6 });
+renderCalendar({ year: 2020, month: 7 });
+renderCalendar({ year: 2020, month: 8 });
+renderCalendar({ year: 2020, month: 9 });
+renderCalendar({ year: 2020, month: 10 });
+renderCalendar({ year: 2020, month: 11 });
