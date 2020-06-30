@@ -6,8 +6,8 @@ const [el] = document.getElementsByClassName("ptd");
 const weekStart = "m";
 
 const weekDays = {
-  m: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-  s: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  m: ["M", "T", "W", "T", "F", "S", "S"],
+  s: ["S", "M", "T", "W", "T", "F", "S"],
 };
 
 const months = [
@@ -61,8 +61,8 @@ function renderDays(input) {
     }
     snippet += `<td class="${
       date.previous ? "previous" : ""
-    }">${date.getDate().toString().padStart(2, "0")}`;
-    if (index % 7 === 6) {
+    }">${date.getDate().toString()}`;
+    if (index % 7 === 6 || index === days.length) {
       snippet += `</tr>`;
     }
   });
