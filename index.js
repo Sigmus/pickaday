@@ -1,12 +1,5 @@
 import range from "lodash/range";
-import dayjs from "dayjs";
-import weekday from "dayjs/plugin/weekday";
-import utc from "dayjs/plugin/utc";
-
 import "./index.css";
-import { sortedUniq } from "lodash";
-dayjs.extend(weekday);
-dayjs.extend(utc);
 
 const [el] = document.getElementsByClassName("ptd");
 
