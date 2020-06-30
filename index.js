@@ -49,7 +49,7 @@ function renderCalendar(input) {
       snippet += `<tr>`;
     }
     // console.log(dataKey);
-    snippet += `<td data-key="${dataKey}" class="${
+    snippet += `<td data-key="${date.previous ? "" : dataKey}" class="${
       date.previous ? "previous " : ""
     }${
       input.selected && input.selected === dataKey ? "selected" : ""
