@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 32px;
+}
+
+.ptd {
+  outline: 4px solid black;
+  padding: 5rem;
+  text-align: center;
+}
