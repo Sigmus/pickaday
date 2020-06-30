@@ -36,6 +36,7 @@ td {
   padding: 1.5rem;
   /* border: 1px solid #666; */
   text-align: center;
+  cursor: pointer;
 }
 
 td.selected {
@@ -46,4 +47,5 @@ td.selected {
 
 .previous {
   color: #bbb;
+  cursor: default;
 }

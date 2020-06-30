@@ -26,10 +26,6 @@ const months = [
 ];
 
 function renderCalendar(input) {
-  const previousMonthDays = getPreviousMonthDays(input);
-
-  const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
-
   let snippet = `<h2>${months[input.month]} ${
     input.year
   }</h2><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
@@ -39,6 +35,9 @@ function renderCalendar(input) {
   }</th><th>${weekDays[weekStart][4]}</th><th>${
     weekDays[weekStart][5]
   }</th><th>${weekDays[weekStart][6]}</th>`;
+
+  const previousMonthDays = getPreviousMonthDays(input);
+  const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
 
   days.forEach((date, index) => {
     const dataKey = `${input.year}-${(input.month + 1)
@@ -118,3 +117,23 @@ renderCalendar({ year: 2020, month: 8 });
 renderCalendar({ year: 2020, month: 9 });
 renderCalendar({ year: 2020, month: 10 });
 renderCalendar({ year: 2020, month: 11 });
+
+getAllDataKeys().forEach((el) => {
+  el.addEventListener("click", function (ev) {
+    if (
+      this.classList.contains("selected") ||
+      this.classList.contains("previous")
+    ) {
+      return;
+    }
+    getAllDataKeys().forEach((el) => {
+      el.classList.remove("selected");
+    });
+    // const date = this.dataset.key;
+    this.classList.add("selected");
+  });
+});
+
+function getAllDataKeys() {
+  return document.querySelectorAll("[data-key]");
+}
