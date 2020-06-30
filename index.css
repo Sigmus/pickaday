@@ -13,13 +13,23 @@ body {
 }
 
 table {
-  font-size: 2rem;
+  font-size: 24px;
   font-weight: 300;
   font-family: sans-serif;
   border-collapse: collapse;
 }
 
+th {
+  font-weight: 400;
+  font-size: 18px;
+  padding-bottom: 8px;
+}
+
 td {
   padding: 1rem;
-  border: 1px solid red;
+  border: 1px solid #666;
+}
+
+.previous {
+  color: #bbb;
 }

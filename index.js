@@ -12,19 +12,26 @@ function renderDays(input) {
       month: input.month === 0 ? 11 : input.month - 1,
     })
   )
+    .map((i) => {
+      i.previous = true;
+      return i;
+    })
     .reverse()
     .slice(0, lastDay.getDay() - 1)
     .reverse();
 
   const days = previousMonthDays.concat(getDaysMonth(lastDay));
 
-  let snippet = "<table><tbody>";
+  let snippet =
+    "<table><tbody><head><tr><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th><th>Sun</th>";
 
   days.forEach((date, index) => {
     if (index % 7 === 0) {
       snippet += `<tr>`;
     }
-    snippet += `<td>${date.getDate().toString().padStart(2, "0")}`;
+    snippet += `<td class="${
+      date.previous ? "previous" : ""
+    }">${date.getDate().toString().padStart(2, "0")}`;
     if (index % 7 === 6) {
       snippet += `</tr>`;
     }
