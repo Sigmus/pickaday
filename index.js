@@ -1,5 +1,6 @@
 import range from "lodash/range";
 import "./index.css";
+import { last } from "lodash";
 
 const [el] = document.getElementsByClassName("ptd");
 
@@ -18,8 +19,22 @@ const months = [
   "Dec",
 ];
 
+function getWeekDay(date) {
+  const number = date.getDay();
+  if (number === 0) {
+    return 6;
+  }
+  //   if (number === 0) {
+  //     return 6;
+  //   }
+  return number - 1;
+}
+
 function renderDays(input) {
+  const firstDay = getFirstDay(input);
   const lastDay = getLastDay(input);
+
+  console.log("firstDay", firstDay);
 
   const previousMonthDays = getDaysMonth(
     getLastDay({
@@ -32,7 +47,7 @@ function renderDays(input) {
       return i;
     })
     .reverse()
-    .slice(0, lastDay.getDay() - 1)
+    .slice(0, getWeekDay(firstDay))
     .reverse();
 
   const days = previousMonthDays.concat(getDaysMonth(lastDay));
@@ -66,6 +81,10 @@ function getDaysMonth(date) {
 
 function getLastDay(input) {
   return new Date(input.year, input.month + 1, 0);
+}
+
+function getFirstDay(input) {
+  return new Date(input.year, input.month);
 }
 
 // console.log(dayjs().set("month", 2));
