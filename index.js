@@ -26,24 +26,9 @@ const months = [
 ];
 
 function renderDays(input) {
-  const firstDay = getFirstDay(input);
-  const lastDay = getLastDay(input);
+  const previousMonthDays = getPreviousMonthDays(input);
 
-  const previousMonthDays = getDaysMonth(
-    getLastDay({
-      year: input.month === 0 ? input.year - 1 : input.year,
-      month: input.month === 0 ? 11 : input.month - 1,
-    })
-  )
-    .map((i) => {
-      i.previous = true;
-      return i;
-    })
-    .reverse()
-    .slice(0, getWeekDay(firstDay))
-    .reverse();
-
-  const days = previousMonthDays.concat(getDaysMonth(lastDay));
+  const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
 
   let snippet = `<h2>${months[input.month]} ${
     input.year
@@ -70,6 +55,22 @@ function renderDays(input) {
   let newNode = document.createElement("div");
   newNode.innerHTML = `${snippet}</tbody></table>`;
   el.appendChild(newNode);
+}
+
+function getPreviousMonthDays(input) {
+  return getDaysMonth(
+    getLastDay({
+      year: input.month === 0 ? input.year - 1 : input.year,
+      month: input.month === 0 ? 11 : input.month - 1,
+    })
+  )
+    .map((i) => {
+      i.previous = true;
+      return i;
+    })
+    .reverse()
+    .slice(0, getWeekDay(getFirstDay(input)))
+    .reverse();
 }
 
 function getDaysMonth(date) {
