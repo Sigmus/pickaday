@@ -3,15 +3,19 @@ import "./index.css";
 import chevronLeft from "./imgs/bx-chevron-left.svg";
 import chevronRight from "./imgs/bx-chevron-right.svg";
 
-export default function pickADay() {
-  const [el] = document.getElementsByClassName("ptd");
-
-  const weekStart = "m";
-
+export default function pickADay({
+  weekStart,
+  mountEl,
+  year,
+  month,
+  selected,
+}) {
   const weekDays = {
     m: ["M", "T", "W", "T", "F", "S", "S"],
     s: ["S", "M", "T", "W", "T", "F", "S"],
   };
+
+  console.log({ weekStart });
 
   const months = [
     "Jan",
@@ -27,10 +31,6 @@ export default function pickADay() {
     "Nov",
     "Dec",
   ];
-
-  let year = 2020;
-  let month = 0;
-  let selected = "2020-01-09";
 
   function renderCalendar(input) {
     let snippet = renderHeader(input);
@@ -61,7 +61,7 @@ export default function pickADay() {
     let newNode = document.createElement("div");
     newNode.className = "ptd-instance";
     newNode.innerHTML = `${snippet}</tbody></table>`;
-    el.appendChild(newNode);
+    mountEl.appendChild(newNode);
   }
 
   function renderHeader(input) {
@@ -127,7 +127,7 @@ export default function pickADay() {
 
   function attachEvents() {
     getAllDataKeys().forEach((el) => {
-      el.addEventListener("click", function (ev) {
+      mountEl.addEventListener("click", function (ev) {
         if (
           this.classList.contains("selected") ||
           this.classList.contains("previous")
@@ -135,7 +135,7 @@ export default function pickADay() {
           return;
         }
         getAllDataKeys().forEach((el) => {
-          el.classList.remove("selected");
+          mountEl.classList.remove("selected");
         });
         // const date = this.dataset.key;
         this.classList.add("selected");
