@@ -144,9 +144,10 @@ export default function pickADay({
   function bindEvents() {
     getAllDataKeys().forEach((el) => {
       el.addEventListener("click", function (ev) {
+        const el = ev.currentTarget;
         if (
-          this.classList.contains("selected") ||
-          this.classList.contains("previous")
+          el.classList.contains("selected") ||
+          el.classList.contains("previous")
         ) {
           return;
         }
@@ -155,21 +156,21 @@ export default function pickADay({
           el.classList.remove("selected");
         });
 
-        this.classList.add("selected");
-        selected = this.dataset.key;
+        el.classList.add("selected");
+        selected = el.dataset.key;
       });
     });
 
     document
       .getElementsByClassName("go-previous")[0]
-      .addEventListener("click", function (ev) {
+      .addEventListener("click", function () {
         document.getElementsByClassName("ptd-instance")[0].remove();
         render({ ...sub1Month({ month, year }), selected });
       });
 
     document
       .getElementsByClassName("go-next")[0]
-      .addEventListener("click", function (ev) {
+      .addEventListener("click", function () {
         document.getElementsByClassName("ptd-instance")[0].remove();
         render({ ...add1Month({ month, year }), selected });
       });
