@@ -31,7 +31,6 @@ export default function pickADay({
   ];
 
   renderCalendar({ year, month, selected });
-  attachEvents();
 
   function renderCalendar(input) {
     let snippet = renderHeader(input);
@@ -64,6 +63,8 @@ export default function pickADay({
     newNode.className = "ptd-instance";
     newNode.innerHTML = `${snippet}</tbody></table>`;
     mountEl.appendChild(newNode);
+
+    bindEvents();
   }
 
   function renderHeader(input) {
@@ -125,19 +126,20 @@ export default function pickADay({
     return document.querySelectorAll("[data-key]");
   }
 
-  function attachEvents() {
+  function bindEvents() {
     getAllDataKeys().forEach((el) => {
       el.addEventListener("click", function (ev) {
         if (
           this.classList.contains("selected") ||
           this.classList.contains("previous")
         ) {
-          console.log("ret");
           return;
         }
+
         getAllDataKeys().forEach((el) => {
           el.classList.remove("selected");
         });
+
         this.classList.add("selected");
         selected = this.dataset.key;
       });
@@ -154,7 +156,6 @@ export default function pickADay({
         }
         document.getElementsByClassName("ptd-instance")[0].remove();
         renderCalendar({ year, month, selected });
-        attachEvents();
       });
 
     document
@@ -168,7 +169,6 @@ export default function pickADay({
         }
         document.getElementsByClassName("ptd-instance")[0].remove();
         renderCalendar({ year, month, selected });
-        attachEvents();
       });
   }
 }
