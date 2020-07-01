@@ -8,6 +8,7 @@ export default function pickADay({
   year,
   month,
   selected,
+  disablePast,
   weekDays = {
     m: ["M", "T", "W", "T", "F", "S", "S"],
     s: ["S", "M", "T", "W", "T", "F", "S"],
@@ -27,17 +28,15 @@ export default function pickADay({
     "Dec",
   ],
 }) {
-  const dt = new Date();
+  const today = new Date();
 
-  const today = `${dt.getFullYear()}-${(dt.getMonth() + 1)
+  const todayDataKey = `${today.getFullYear()}-${(today.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}-${dt.getDate().toString().padStart(2, "0")}`;
-
-  console.log("today", today);
+    .padStart(2, "0")}-${today.getDate().toString().padStart(2, "0")}`;
 
   if (typeof year === "undefined" || typeof month === "undefined") {
-    year = dt.getFullYear();
-    month = dt.getMonth();
+    year = today.getFullYear();
+    month = today.getMonth();
   }
 
   render({ year, month, selected });
@@ -57,7 +56,9 @@ export default function pickADay({
   }
 
   function renderHeader(input) {
-    return `<div class="header"><img class="go-previous" src="${chevronLeft}"/><h2>${
+    return `<div class="header"><div class="go-previous ${
+      shouldDisablePast() ? "disabled" : ""
+    }" src="${chevronLeft}"/><img src="${chevronLeft}"/></div><h2>${
       months[input.month]
     } ${
       input.year
@@ -68,6 +69,12 @@ export default function pickADay({
     }</th><th>${weekDays[weekStart][3]}</th><th>${
       weekDays[weekStart][4]
     }</th><th>${weekDays[weekStart][5]}</th><th>${weekDays[weekStart][6]}</th>`;
+  }
+
+  function shouldDisablePast() {
+    return (
+      disablePast && today.getMonth() === month && today.getFullYear() === year
+    );
   }
 
   function renderRows(input) {
@@ -88,7 +95,7 @@ export default function pickADay({
 
       snippet += `<td data-key="${date.previous ? "" : dataKey}" class="${
         date.previous ? "previous " : ""
-      }${dataKey === today ? "today " : ""}${
+      }${dataKey === todayDataKey ? "today " : ""}${
         input.selected && input.selected === dataKey ? "selected" : ""
       }">${date.getDate().toString()}`;
 
@@ -176,7 +183,10 @@ export default function pickADay({
 
     document
       .getElementsByClassName("go-previous")[0]
-      .addEventListener("click", function () {
+      .addEventListener("click", function (ev) {
+        if (ev.currentTarget.classList.contains("disabled")) {
+          return;
+        }
         document.getElementsByClassName("ptd-instance")[0].remove();
         render({ ...sub1Month({ month, year }), selected });
       });

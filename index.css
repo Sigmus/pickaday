@@ -7,6 +7,10 @@ body {
   padding: 32px;
 }
 
+.hidden {
+  display: hidden;
+}
+
 .ptd {
   padding: 2rem;
   text-align: center;
@@ -59,12 +63,17 @@ td.today {
 .header {
   margin-bottom: 3rem;
   display: flex;
-  justify-content: space-between;
-  padding: 0 3.25rem;
+  justify-content: space-around;
 }
 
-.header img {
+.go-previous,
+.go-previous img,
+.go-next {
   width: 48px;
   height: 48px;
   cursor: pointer;
+}
+
+.disabled img {
+  display: none;
 }
