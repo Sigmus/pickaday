@@ -30,9 +30,11 @@ export default function pickADay({
     "Dec",
   ];
 
-  renderCalendar({ year, month, selected });
+  render({ year, month, selected });
 
-  function renderCalendar(input) {
+  function render(input) {
+    month = input.month;
+    year = input.year;
     let snippet = renderHeader(input);
 
     const days = getPreviousMonthDays(input).concat(
@@ -82,12 +84,7 @@ export default function pickADay({
   }
 
   function getPreviousMonthDays(input) {
-    return getDaysMonth(
-      getLastDay({
-        year: input.month === 0 ? input.year - 1 : input.year,
-        month: input.month === 0 ? 11 : input.month - 1,
-      })
-    )
+    return getDaysMonth(getLastDay(sub1Month(input)))
       .map((i) => {
         i.previous = true;
         return i;
@@ -126,6 +123,20 @@ export default function pickADay({
     return document.querySelectorAll("[data-key]");
   }
 
+  function sub1Month(input) {
+    return {
+      year: input.month === 0 ? input.year - 1 : input.year,
+      month: input.month === 0 ? 11 : input.month - 1,
+    };
+  }
+
+  function add1Month(input) {
+    return {
+      year: input.month === 11 ? input.year + 1 : input.year,
+      month: input.month === 11 ? 0 : input.month + 1,
+    };
+  }
+
   function bindEvents() {
     getAllDataKeys().forEach((el) => {
       el.addEventListener("click", function (ev) {
@@ -148,27 +159,15 @@ export default function pickADay({
     document
       .getElementsByClassName("go-previous")[0]
       .addEventListener("click", function (ev) {
-        if (month === 0) {
-          month = 11;
-          year--;
-        } else {
-          month--;
-        }
         document.getElementsByClassName("ptd-instance")[0].remove();
-        renderCalendar({ year, month, selected });
+        render({ ...sub1Month({ month, year }), selected });
       });
 
     document
       .getElementsByClassName("go-next")[0]
       .addEventListener("click", function (ev) {
-        if (month === 11) {
-          month = 0;
-          year++;
-        } else {
-          month++;
-        }
         document.getElementsByClassName("ptd-instance")[0].remove();
-        renderCalendar({ year, month, selected });
+        render({ ...add1Month({ month, year }), selected });
       });
   }
 }
