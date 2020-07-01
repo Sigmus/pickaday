@@ -27,6 +27,10 @@ const months = [
   "Dec",
 ];
 
+let year = 2020;
+let month = 0;
+let selected = "2020-01-09";
+
 function renderCalendar(input) {
   let snippet = renderHeader(input);
 
@@ -54,6 +58,7 @@ function renderCalendar(input) {
   });
 
   let newNode = document.createElement("div");
+  newNode.className = "ptd-instance";
   newNode.innerHTML = `${snippet}</tbody></table>`;
   el.appendChild(newNode);
 }
@@ -113,47 +118,57 @@ function getWeekDay(date) {
   return number - 1;
 }
 
-renderCalendar({ year: 2020, month: 0, selected: "2020-01-09" });
-// renderCalendar({ year: 2020, month: 1 });
-// renderCalendar({ year: 2020, month: 2 });
-// renderCalendar({ year: 2020, month: 3 });
-// renderCalendar({ year: 2020, month: 4 });
-// renderCalendar({ year: 2020, month: 5 });
-// renderCalendar({ year: 2020, month: 6 });
-// renderCalendar({ year: 2020, month: 7 });
-// renderCalendar({ year: 2020, month: 8 });
-// renderCalendar({ year: 2020, month: 9 });
-// renderCalendar({ year: 2020, month: 10 });
-// renderCalendar({ year: 2020, month: 11 });
+renderCalendar({ year, month, selected });
 
 function getAllDataKeys() {
   return document.querySelectorAll("[data-key]");
 }
 
-getAllDataKeys().forEach((el) => {
-  el.addEventListener("click", function (ev) {
-    if (
-      this.classList.contains("selected") ||
-      this.classList.contains("previous")
-    ) {
-      return;
-    }
-    getAllDataKeys().forEach((el) => {
-      el.classList.remove("selected");
+function attachEvents() {
+  getAllDataKeys().forEach((el) => {
+    el.addEventListener("click", function (ev) {
+      if (
+        this.classList.contains("selected") ||
+        this.classList.contains("previous")
+      ) {
+        return;
+      }
+      getAllDataKeys().forEach((el) => {
+        el.classList.remove("selected");
+      });
+      // const date = this.dataset.key;
+      this.classList.add("selected");
+      selected = this.dataset.key;
     });
-    // const date = this.dataset.key;
-    this.classList.add("selected");
-  });
-});
-
-document
-  .getElementsByClassName("go-previous")[0]
-  .addEventListener("click", function (ev) {
-    alert("previous");
   });
 
-document
-  .getElementsByClassName("go-next")[0]
-  .addEventListener("click", function (ev) {
-    alert("next");
-  });
+  document
+    .getElementsByClassName("go-previous")[0]
+    .addEventListener("click", function (ev) {
+      if (month === 0) {
+        month = 11;
+        year--;
+      } else {
+        month--;
+      }
+      document.getElementsByClassName("ptd-instance")[0].remove();
+      renderCalendar({ year, month, selected });
+      attachEvents();
+    });
+
+  document
+    .getElementsByClassName("go-next")[0]
+    .addEventListener("click", function (ev) {
+      if (month === 11) {
+        month = 0;
+        year++;
+      } else {
+        month++;
+      }
+      document.getElementsByClassName("ptd-instance")[0].remove();
+      renderCalendar({ year, month, selected });
+      attachEvents();
+    });
+}
+
+attachEvents();
