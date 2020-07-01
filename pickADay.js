@@ -8,13 +8,11 @@ export default function pickADay({
   year,
   month,
   selected,
-}) {
-  const weekDays = {
+  weekDays = {
     m: ["M", "T", "W", "T", "F", "S", "S"],
     s: ["S", "M", "T", "W", "T", "F", "S"],
-  };
-
-  const months = [
+  },
+  months = [
     "Jan",
     "Feb",
     "Mar",
@@ -27,8 +25,8 @@ export default function pickADay({
     "Oct",
     "Nov",
     "Dec",
-  ];
-
+  ],
+}) {
   render({ year, month, selected });
 
   function render(input) {
@@ -63,6 +61,7 @@ export default function pickADay({
     let newNode = document.createElement("div");
     newNode.className = "ptd-instance";
     newNode.innerHTML = `${snippet}</tbody></table>`;
+
     mountEl.appendChild(newNode);
 
     bindEvents();
