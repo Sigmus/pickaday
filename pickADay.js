@@ -32,7 +32,33 @@ export default function pickADay({
   function render(input) {
     month = input.month;
     year = input.year;
-    let snippet = renderHeader(input);
+
+    const newNode = document.createElement("div");
+    newNode.className = "ptd-instance";
+    newNode.innerHTML = `${
+      renderHeader(input) + renderRows(input)
+    }</tbody></table>`;
+
+    mountEl.appendChild(newNode);
+    bindEvents();
+  }
+
+  function renderHeader(input) {
+    return `<div class="header"><img class="go-previous" src="${chevronLeft}"/><h2>${
+      months[input.month]
+    } ${
+      input.year
+    }</h2><img class="go-next" src="${chevronRight}"/></div><table><tbody><head><tr><th>${
+      weekDays[weekStart][0]
+    }</th><th>${weekDays[weekStart][1]}</th><th>${
+      weekDays[weekStart][2]
+    }</th><th>${weekDays[weekStart][3]}</th><th>${
+      weekDays[weekStart][4]
+    }</th><th>${weekDays[weekStart][5]}</th><th>${weekDays[weekStart][6]}</th>`;
+  }
+
+  function renderRows(input) {
+    let snippet = "";
 
     const days = getPreviousMonthDays(input).concat(
       getDaysMonth(getLastDay(input))
@@ -58,27 +84,7 @@ export default function pickADay({
       }
     });
 
-    let newNode = document.createElement("div");
-    newNode.className = "ptd-instance";
-    newNode.innerHTML = `${snippet}</tbody></table>`;
-
-    mountEl.appendChild(newNode);
-
-    bindEvents();
-  }
-
-  function renderHeader(input) {
-    return `<div class="header"><img class="go-previous" src="${chevronLeft}"/><h2>${
-      months[input.month]
-    } ${
-      input.year
-    }</h2><img class="go-next" src="${chevronRight}"/></div><table><tbody><head><tr><th>${
-      weekDays[weekStart][0]
-    }</th><th>${weekDays[weekStart][1]}</th><th>${
-      weekDays[weekStart][2]
-    }</th><th>${weekDays[weekStart][3]}</th><th>${
-      weekDays[weekStart][4]
-    }</th><th>${weekDays[weekStart][5]}</th><th>${weekDays[weekStart][6]}</th>`;
+    return snippet;
   }
 
   function getPreviousMonthDays(input) {
@@ -117,10 +123,6 @@ export default function pickADay({
     return number - 1;
   }
 
-  function getAllDataKeys() {
-    return document.querySelectorAll("[data-key]");
-  }
-
   function sub1Month(input) {
     return {
       year: input.month === 0 ? input.year - 1 : input.year,
@@ -133,6 +135,10 @@ export default function pickADay({
       year: input.month === 11 ? input.year + 1 : input.year,
       month: input.month === 11 ? 0 : input.month + 1,
     };
+  }
+
+  function getAllDataKeys() {
+    return document.querySelectorAll("[data-key]");
   }
 
   function bindEvents() {
