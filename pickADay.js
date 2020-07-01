@@ -15,8 +15,6 @@ export default function pickADay({
     s: ["S", "M", "T", "W", "T", "F", "S"],
   };
 
-  console.log({ weekStart });
-
   const months = [
     "Jan",
     "Feb",
@@ -32,11 +30,15 @@ export default function pickADay({
     "Dec",
   ];
 
+  renderCalendar({ year, month, selected });
+  attachEvents();
+
   function renderCalendar(input) {
     let snippet = renderHeader(input);
 
-    const previousMonthDays = getPreviousMonthDays(input);
-    const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
+    const days = getPreviousMonthDays(input).concat(
+      getDaysMonth(getLastDay(input))
+    );
 
     days.forEach((date, index) => {
       const dataKey = `${input.year}-${(input.month + 1)
@@ -119,25 +121,23 @@ export default function pickADay({
     return number - 1;
   }
 
-  renderCalendar({ year, month, selected });
-
   function getAllDataKeys() {
     return document.querySelectorAll("[data-key]");
   }
 
   function attachEvents() {
     getAllDataKeys().forEach((el) => {
-      mountEl.addEventListener("click", function (ev) {
+      el.addEventListener("click", function (ev) {
         if (
           this.classList.contains("selected") ||
           this.classList.contains("previous")
         ) {
+          console.log("ret");
           return;
         }
         getAllDataKeys().forEach((el) => {
-          mountEl.classList.remove("selected");
+          el.classList.remove("selected");
         });
-        // const date = this.dataset.key;
         this.classList.add("selected");
         selected = this.dataset.key;
       });
@@ -171,6 +171,4 @@ export default function pickADay({
         attachEvents();
       });
   }
-
-  attachEvents();
 }

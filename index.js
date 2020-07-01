@@ -1,5 +1,5 @@
 import "./index.css";
-import pickAday from "./pickaday";
+import pickAday from "./pickADay";
 
 pickAday({
   weekStart: "m",
