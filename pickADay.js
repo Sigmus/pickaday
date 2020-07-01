@@ -1,4 +1,3 @@
-import range from "lodash/range";
 import "./index.css";
 import chevronLeft from "./imgs/bx-chevron-left.svg";
 import chevronRight from "./imgs/bx-chevron-right.svg";
@@ -95,7 +94,7 @@ export default function pickADay({
   }
 
   function getDaysMonth(date) {
-    return range(1, date.getDate() + 1).map((i) => {
+    return Array.from(Array(date.getDate()), (_, i) => i + 1).map((i) => {
       return new Date(date.getFullYear(), date.getMonth(), i);
     });
   }
