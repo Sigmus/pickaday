@@ -52,4 +52,13 @@ td.selected {
 
 .header {
   margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 3.25rem;
+}
+
+.header img {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
 }

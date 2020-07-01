@@ -1,5 +1,7 @@
 import range from "lodash/range";
 import "./index.css";
+import chevronLeft from "./imgs/bx-chevron-left.svg";
+import chevronRight from "./imgs/bx-chevron-right.svg";
 
 const [el] = document.getElementsByClassName("ptd");
 
@@ -57,15 +59,17 @@ function renderCalendar(input) {
 }
 
 function renderHeader(input) {
-  return `<div class="header"><h2>${months[input.month]} ${
+  return `<div class="header"><img class="go-previous" src="${chevronLeft}"/><h2>${
+    months[input.month]
+  } ${
     input.year
-  }</h2></div><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
-    weekDays[weekStart][1]
-  }</th><th>${weekDays[weekStart][2]}</th><th>${
-    weekDays[weekStart][3]
-  }</th><th>${weekDays[weekStart][4]}</th><th>${
-    weekDays[weekStart][5]
-  }</th><th>${weekDays[weekStart][6]}</th>`;
+  }</h2><img class="go-next" src="${chevronRight}"/></div><table><tbody><head><tr><th>${
+    weekDays[weekStart][0]
+  }</th><th>${weekDays[weekStart][1]}</th><th>${
+    weekDays[weekStart][2]
+  }</th><th>${weekDays[weekStart][3]}</th><th>${
+    weekDays[weekStart][4]
+  }</th><th>${weekDays[weekStart][5]}</th><th>${weekDays[weekStart][6]}</th>`;
 }
 
 function getPreviousMonthDays(input) {
@@ -110,17 +114,21 @@ function getWeekDay(date) {
 }
 
 renderCalendar({ year: 2020, month: 0, selected: "2020-01-09" });
-renderCalendar({ year: 2020, month: 1 });
-renderCalendar({ year: 2020, month: 2 });
-renderCalendar({ year: 2020, month: 3 });
-renderCalendar({ year: 2020, month: 4 });
-renderCalendar({ year: 2020, month: 5 });
-renderCalendar({ year: 2020, month: 6 });
-renderCalendar({ year: 2020, month: 7 });
-renderCalendar({ year: 2020, month: 8 });
-renderCalendar({ year: 2020, month: 9 });
-renderCalendar({ year: 2020, month: 10 });
-renderCalendar({ year: 2020, month: 11 });
+// renderCalendar({ year: 2020, month: 1 });
+// renderCalendar({ year: 2020, month: 2 });
+// renderCalendar({ year: 2020, month: 3 });
+// renderCalendar({ year: 2020, month: 4 });
+// renderCalendar({ year: 2020, month: 5 });
+// renderCalendar({ year: 2020, month: 6 });
+// renderCalendar({ year: 2020, month: 7 });
+// renderCalendar({ year: 2020, month: 8 });
+// renderCalendar({ year: 2020, month: 9 });
+// renderCalendar({ year: 2020, month: 10 });
+// renderCalendar({ year: 2020, month: 11 });
+
+function getAllDataKeys() {
+  return document.querySelectorAll("[data-key]");
+}
 
 getAllDataKeys().forEach((el) => {
   el.addEventListener("click", function (ev) {
@@ -138,6 +146,14 @@ getAllDataKeys().forEach((el) => {
   });
 });
 
-function getAllDataKeys() {
-  return document.querySelectorAll("[data-key]");
-}
+document
+  .getElementsByClassName("go-previous")[0]
+  .addEventListener("click", function (ev) {
+    alert("previous");
+  });
+
+document
+  .getElementsByClassName("go-next")[0]
+  .addEventListener("click", function (ev) {
+    alert("next");
+  });
