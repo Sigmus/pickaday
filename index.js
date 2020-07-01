@@ -26,15 +26,7 @@ const months = [
 ];
 
 function renderCalendar(input) {
-  let snippet = `<h2>${months[input.month]} ${
-    input.year
-  }</h2><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
-    weekDays[weekStart][1]
-  }</th><th>${weekDays[weekStart][2]}</th><th>${
-    weekDays[weekStart][3]
-  }</th><th>${weekDays[weekStart][4]}</th><th>${
-    weekDays[weekStart][5]
-  }</th><th>${weekDays[weekStart][6]}</th>`;
+  let snippet = renderHeader(input);
 
   const previousMonthDays = getPreviousMonthDays(input);
   const days = previousMonthDays.concat(getDaysMonth(getLastDay(input)));
@@ -62,6 +54,18 @@ function renderCalendar(input) {
   let newNode = document.createElement("div");
   newNode.innerHTML = `${snippet}</tbody></table>`;
   el.appendChild(newNode);
+}
+
+function renderHeader(input) {
+  return `<div class="header"><h2>${months[input.month]} ${
+    input.year
+  }</h2></div><table><tbody><head><tr><th>${weekDays[weekStart][0]}</th><th>${
+    weekDays[weekStart][1]
+  }</th><th>${weekDays[weekStart][2]}</th><th>${
+    weekDays[weekStart][3]
+  }</th><th>${weekDays[weekStart][4]}</th><th>${
+    weekDays[weekStart][5]
+  }</th><th>${weekDays[weekStart][6]}</th>`;
 }
 
 function getPreviousMonthDays(input) {

@@ -49,3 +49,7 @@ td.selected {
   color: #bbb;
   cursor: default;
 }
+
+.header {
+  margin-bottom: 3rem;
+}
