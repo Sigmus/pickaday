@@ -45,6 +45,12 @@ td.selected {
   border-radius: 50%;
 }
 
+td.today {
+  background-color: #ddd;
+  color: white;
+  border-radius: 50%;
+}
+
 .previous {
   color: #bbb;
   cursor: default;

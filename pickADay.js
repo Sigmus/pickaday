@@ -27,6 +27,19 @@ export default function pickADay({
     "Dec",
   ],
 }) {
+  const dt = new Date();
+
+  const today = `${dt.getFullYear()}-${(dt.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${dt.getDate().toString().padStart(2, "0")}`;
+
+  console.log("today", today);
+
+  if (typeof year === "undefined" || typeof month === "undefined") {
+    year = dt.getFullYear();
+    month = dt.getMonth();
+  }
+
   render({ year, month, selected });
 
   function render(input) {
@@ -75,7 +88,7 @@ export default function pickADay({
 
       snippet += `<td data-key="${date.previous ? "" : dataKey}" class="${
         date.previous ? "previous " : ""
-      }${
+      }${dataKey === today ? "today " : ""}${
         input.selected && input.selected === dataKey ? "selected" : ""
       }">${date.getDate().toString()}`;
 
