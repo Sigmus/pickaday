@@ -82,3 +82,23 @@ body {
   display: none;
   cursor: default;
 }
+
+@media only screen and (max-device-width: 480px) {
+  .ptd-example .ptd-instance {
+    max-width: 100%;
+  }
+
+  .ptd-header-title,
+  .ptd-instance table {
+    font-size: 36px;
+  }
+
+  .ptd-header {
+    margin: 0 36px 36px 36px;
+  }
+
+  .ptd-instance th,
+  .ptd-instance td {
+    padding: 2rem;
+  }
+}
