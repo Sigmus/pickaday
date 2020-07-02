@@ -56,13 +56,13 @@ export default function pickADay({
   }
 
   function renderHeader(input) {
-    return `<div class="header"><div class="go-previous ${
-      shouldDisablePast() ? "disabled" : ""
-    }" src="${chevronLeft}"/><img src="${chevronLeft}"/></div><h2>${
+    return `<div class="ptd-header"><div class="ptd-go-previous ${
+      shouldDisablePast() ? "ptd-disabled" : ""
+    }" src="${chevronLeft}"/><img src="${chevronLeft}"/></div><div class="ptd-header-title">${
       months[input.month]
     } ${
       input.year
-    }</h2><img class="go-next" src="${chevronRight}"/></div><table><tbody><head><tr><th>${
+    }</div><img class="ptd-go-next" src="${chevronRight}"/></div><table><tbody><head><tr><th>${
       weekDays[weekStart][0]
     }</th><th>${weekDays[weekStart][1]}</th><th>${
       weekDays[weekStart][2]
@@ -94,9 +94,9 @@ export default function pickADay({
       }
 
       snippet += `<td data-key="${date.previous ? "" : dataKey}" class="${
-        date.previous ? "previous " : ""
-      }${dataKey === todayDataKey ? "today " : ""}${
-        input.selected && input.selected === dataKey ? "selected" : ""
+        date.previous ? "ptd-previous " : ""
+      }${dataKey === todayDataKey ? "ptd-today " : ""}${
+        input.selected && input.selected === dataKey ? "ptd-selected" : ""
       }">${date.getDate().toString()}`;
 
       if (index % 7 === 6 || index === days.length) {
@@ -166,25 +166,25 @@ export default function pickADay({
       el.addEventListener("click", function (ev) {
         const el = ev.currentTarget;
         if (
-          el.classList.contains("selected") ||
-          el.classList.contains("previous")
+          el.classList.contains("ptd-selected") ||
+          el.classList.contains("ptd-previous")
         ) {
           return;
         }
 
         getAllDataKeys().forEach((el) => {
-          el.classList.remove("selected");
+          el.classList.remove("ptd-selected");
         });
 
-        el.classList.add("selected");
+        el.classList.add("ptd-selected");
         selected = el.dataset.key;
       });
     });
 
     document
-      .getElementsByClassName("go-previous")[0]
+      .getElementsByClassName("ptd-go-previous")[0]
       .addEventListener("click", function (ev) {
-        if (ev.currentTarget.classList.contains("disabled")) {
+        if (ev.currentTarget.classList.contains("ptd-disabled")) {
           return;
         }
         document.getElementsByClassName("ptd-instance")[0].remove();
@@ -192,7 +192,7 @@ export default function pickADay({
       });
 
     document
-      .getElementsByClassName("go-next")[0]
+      .getElementsByClassName("ptd-go-next")[0]
       .addEventListener("click", function () {
         document.getElementsByClassName("ptd-instance")[0].remove();
         render({ ...add1Month({ month, year }), selected });

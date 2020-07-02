@@ -7,73 +7,78 @@ body {
   padding: 32px;
 }
 
-.hidden {
-  display: hidden;
+.ptd-example .ptd-instance {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
-.ptd {
-  padding: 2rem;
-  text-align: center;
+.ptd-instance {
+  font-size: 24px;
 }
 
-h2 {
-  font-weight: bold;
-  margin: 0;
-  font-size: 3rem;
-}
-
-table {
-  font-size: 4rem;
+.ptd-instance table {
   font-weight: 300;
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 3rem;
+  font-size: 24px;
 }
 
-th {
+.ptd-instance th,
+.ptd-instance td {
+  padding: 1rem;
+}
+
+.ptd-instance th {
   font-weight: bold;
-  font-size: 3rem;
-  padding-bottom: 8px;
 }
 
-td {
-  padding: 1.5rem;
-  /* border: 1px solid #666; */
+.ptd-instance td {
   text-align: center;
   cursor: pointer;
 }
 
-td.selected {
+.ptd-selected {
   background-color: teal;
   color: white;
   border-radius: 50%;
 }
 
-td.today {
+.ptd-today {
   background-color: #ddd;
   color: white;
   border-radius: 50%;
 }
 
-.previous {
+.ptd-previous {
   color: #bbb;
   cursor: default;
 }
 
-.header {
-  margin-bottom: 3rem;
+.ptd-header {
+  margin: 0 12px 12px 12px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
-.go-previous,
-.go-previous img,
-.go-next {
+.ptd-header-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.ptd-go-previous,
+.ptd-go-previous img,
+.ptd-go-next {
   width: 48px;
   height: 48px;
   cursor: pointer;
 }
 
-.disabled img {
+.ptd-disabled {
+  cursor: default;
+}
+
+.ptd-disabled img {
   display: none;
+  cursor: default;
 }
