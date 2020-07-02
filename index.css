@@ -12,7 +12,8 @@ body {
   margin: 0 auto;
 }
 
-.ptd-instance {
+.ptd-header-title,
+.ptd-instance table {
   font-size: 24px;
 }
 
@@ -20,8 +21,6 @@ body {
   font-weight: 300;
   border-collapse: collapse;
   width: 100%;
-  margin-bottom: 3rem;
-  font-size: 24px;
 }
 
 .ptd-instance th,
@@ -59,6 +58,7 @@ body {
   margin: 0 12px 12px 12px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .ptd-header-title {
